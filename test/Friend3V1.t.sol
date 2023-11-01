@@ -27,4 +27,11 @@ contract Friend3V1Test is Test {
 
         emit log_uint(price);
     }
+
+    function test_protocolFeeDestination() public {
+        address feeDest = friend3.protocolFeeDestination();
+        // feeDest is not set in the local deployment
+        assertEq(feeDest, 0x0000000000000000000000000000000000000000);
+        emit log_address(feeDest);
+    }
 }
