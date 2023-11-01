@@ -35,6 +35,32 @@ contract Friend3V1 is Ownable {
         subjectFeePercent = _feePercent;
     }
 
+    function getPrice1600(uint256 _supply, uint256 _amount) public pure returns (uint256)  {
+        // mainnet version
+        return getPriceInv(_supply, _amount) / 1600;
+    }
+
+    function getPrice16000(uint256 _supply, uint256 _amount) public pure returns (uint256)  {
+        // github vesion
+        return getPriceInv(_supply, _amount) / 16000;
+    }
+
+    function getPriceInv(
+        uint256 supply,
+        uint256 amount
+    ) internal pure returns (uint256) {
+        uint256 sum1 = supply == 0
+            ? 0
+            : ((supply - 1) * (supply) * (2 * (supply - 1) + 1)) / 6;
+        uint256 sum2 = supply == 0 && amount == 1
+            ? 0
+            : ((supply - 1 + amount) *
+                (supply + amount) *
+                (2 * (supply - 1 + amount) + 1)) / 6;
+        uint256 summation = sum2 - sum1;
+        return (summation * 1 ether);
+    }
+
     function getPrice(
         uint256 supply,
         uint256 amount

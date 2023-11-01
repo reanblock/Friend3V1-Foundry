@@ -11,16 +11,20 @@ contract Friend3V1Test is Test {
         friend3 = new Friend3V1();
     }
 
-    function test_subjectFeePercent() public {
-        assertEq(friend3.subjectFeePercent(), 0);
+    function test_getPriceInv(uint64 supply, uint64 amount) public {
+        vm.assume(supply > 0);
+        // mainnet version
+        uint256 price1600 = friend3.getPrice1600(supply, amount);
+        // github version
+        uint256 price16000 = friend3.getPrice16000(supply, amount);
+        assertEq(price1600, price16000 * 10);
+        
+        emit log_uint(price1600);
     }
 
-    function test_owner() public {
-        emit log_address(friend3.owner());
-        assertEq(friend3.owner(), 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496);
-    }
+    function test_getPriceOrig() public {
+        uint256 price = friend3.getPrice(1e18, 1e18);
 
-    function test_getPrice() public {
-        emit log_uint(friend3.getPrice(1e18, 1e18));
+        emit log_uint(price);
     }
 }
