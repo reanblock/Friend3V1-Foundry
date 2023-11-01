@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {Friend3V1} from "../contracts/Friend3V1.sol";
+import {Friend3V1} from "../src/Friend3V1.sol";
 
 contract Friend3V1Test is Test {
     Friend3V1 public friend3;
